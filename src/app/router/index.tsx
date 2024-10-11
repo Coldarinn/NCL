@@ -1,8 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { routes } from "./routes";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { routes } from "./routes"
 
 export const Router = () => {
-  let router = createBrowserRouter(routes);
+  const router = createBrowserRouter(routes)
 
-  return <RouterProvider router={router} fallbackElement={null} />;
-};
+  return <RouterProvider router={router} fallbackElement={null} />
+}

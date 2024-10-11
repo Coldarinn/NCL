@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export const NoMatch = () => {
   return (
@@ -8,5 +8,5 @@ export const NoMatch = () => {
         <Link to="/">Go to the home page</Link>
       </p>
     </div>
-  );
-};
+  )
+}

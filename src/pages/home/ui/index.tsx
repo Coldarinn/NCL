@@ -3,5 +3,5 @@ export const Home = () => {
     <div>
       <button>подключить кошелек</button>
     </div>
-  );
-};
+  )
+}

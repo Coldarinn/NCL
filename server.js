@@ -1,23 +1,23 @@
-import { fileURLToPath } from "url";
-import path from "path";
-import fsp from "fs/promises";
-import express from "express";
+import { fileURLToPath } from "url"
+import path from "path"
+import fsp from "fs/promises"
+import express from "express"
 
-let root = process.cwd();
-let isProduction = process.env.NODE_ENV === "production";
+let root = process.cwd()
+let isProduction = process.env.NODE_ENV === "production"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 function resolve(p) {
-  return path.resolve(__dirname, p);
+  return path.resolve(__dirname, p)
 }
 
 async function createServer() {
-  let app = express();
+  let app = express()
   /**
    * @type {import('vite').ViteDevServer}
    */
-  let vite;
+  let vite
 
   if (!isProduction) {
     vite = await (
@@ -26,62 +26,51 @@ async function createServer() {
       root,
       appType: "custom",
       server: { middlewareMode: "ssr" },
-    });
+    })
 
-    app.use(vite.middlewares);
+    app.use(vite.middlewares)
   } else {
-    app.use((await import("compression")).default());
-    app.use(express.static(resolve("dist/client")));
+    app.use((await import("compression")).default())
+    app.use(express.static(resolve("dist/client")))
   }
 
   app.use("*", async (req, res) => {
-    let url = req.originalUrl;
+    let url = req.originalUrl
 
     try {
-      let template;
-      let render;
+      let template
+      let render
 
       if (!isProduction) {
-        template = await fsp.readFile(resolve("index.html"), "utf8");
-        template = await vite.transformIndexHtml(url, template);
-        render = await vite
-          .ssrLoadModule("src/app/entry.server.tsx")
-          .then((m) => m.render);
+        template = await fsp.readFile(resolve("index.html"), "utf8")
+        template = await vite.transformIndexHtml(url, template)
+        render = await vite.ssrLoadModule("src/app/entry.server.tsx").then((m) => m.render)
       } else {
-        template = await fsp.readFile(
-          resolve("dist/client/index.html"),
-          "utf8"
-        );
-        render = await import("./dist/server/entry.server.js").then(
-          (m) => m.render
-        );
+        template = await fsp.readFile(resolve("dist/client/index.html"), "utf8")
+        render = await import("./dist/server/entry.server.js").then((m) => m.render)
       }
 
       try {
-        let appHtml = await render(req, res);
-        let html = template.replace("<!--app-html-->", appHtml);
-        res.setHeader("Content-Type", "text/html");
-        return res.status(200).end(html);
+        let appHtml = await render(req, res)
+        let html = template.replace("<!--app-html-->", appHtml)
+        res.setHeader("Content-Type", "text/html")
+        return res.status(200).end(html)
       } catch (e) {
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {
-          return res.redirect(e.status, e.headers.get("Location"));
+          return res.redirect(e.status, e.headers.get("Location"))
         }
-        throw e;
+        throw e
       }
     } catch (error) {
       if (!isProduction) {
-        vite.ssrFixStacktrace(error);
+        vite.ssrFixStacktrace(error)
       }
-      console.log(error.stack);
-      res.status(500).end(error.stack);
+      console.log(error.stack)
+      res.status(500).end(error.stack)
     }
-  });
+  })
 
-  return app;
+  return app
 }
 
-createServer().then((app) =>
-  app.listen(3000, () =>
-    console.log("HTTP server is running at http://localhost:3000")
-  )
-);
+createServer().then((app) => app.listen(3000, () => console.log("HTTP server is running at http://localhost:3000")))
