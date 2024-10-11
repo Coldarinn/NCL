@@ -30,7 +30,7 @@ async function createServer() {
 
     app.use(vite.middlewares);
   } else {
-    app.use(require("compression")());
+    app.use((await import("compression")).default());
     app.use(express.static(resolve("dist/client")));
   }
 
@@ -52,7 +52,9 @@ async function createServer() {
           resolve("dist/client/index.html"),
           "utf8"
         );
-        render = require(resolve("dist/server/entry.server.js")).render;
+        render = await import("./dist/server/entry.server.js").then(
+          (m) => m.render
+        );
       }
 
       try {
