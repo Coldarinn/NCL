@@ -1,12 +1,9 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  matchRoutes,
-  RouterProvider,
-} from "react-router-dom";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { matchRoutes } from "react-router-dom";
 
-import { routes } from "./App.tsx";
+import { routes } from "./router/routes";
+import { Router } from "./router";
 
 hydrate();
 
@@ -24,12 +21,10 @@ async function hydrate() {
     );
   }
 
-  let router = createBrowserRouter(routes);
-
   ReactDOM.hydrateRoot(
     document.getElementById("app")!,
     <React.StrictMode>
-      <RouterProvider router={router} fallbackElement={null} />
+      <Router />
     </React.StrictMode>
   );
 }

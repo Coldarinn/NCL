@@ -6,7 +6,7 @@ import {
   createStaticRouter,
   StaticRouterProvider,
 } from "react-router-dom/server";
-import { routes } from "./App";
+import { routes } from "./router/routes";
 
 export async function render(
   request: express.Request,
