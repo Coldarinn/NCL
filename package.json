@@ -1,0 +1,17 @@
+{
+  "name": "ncl",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write .",
+    "prepare": "git config core.hooksPath .git-hooks || echo 'Not in a git repo'"
+  },
+  "devDependencies": {
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,scss,html,md}": "npx prettier --write"
+  }
+}
