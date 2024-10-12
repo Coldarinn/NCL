@@ -1,11 +1,11 @@
+import "@/shared/styles/main.scss"
+
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { matchRoutes } from "react-router-dom"
 
 import { routes } from "./router/routes"
 import { Router } from "./router"
-
-import "@/shared/styles/main.scss"
 
 hydrate()
 

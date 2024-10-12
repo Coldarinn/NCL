@@ -1,33 +1,29 @@
-:root {
-  --breakpoint-phone-small: 320px;
-  --breakpoint-phone-large: 600px;
-  --breakpoint-tablet-portrait: 768px;
-  --breakpoint-tablet-landscape: 1024px;
-  --breakpoint-desktop-small: 1280px;
-  --breakpoint-desktop-medium: 1440px;
-  --breakpoint-desktop-large: 1920px;
-}
-
-$valid-breakpoints: (phone-small, phone-large, tablet-portrait, tablet-landscape, desktop-small, desktop-medium, desktop-large);
-
-@mixin check-breakpoint($breakpoint) {
-  @if not index($valid-breakpoints, $breakpoint) {
-    @error "Invalid breakpoint: '#{$breakpoint}'. Allowed breakpoints: #{$valid-breakpoints}.";
-  }
-}
+$breakpoints: (
+  phoneSmall: 320,
+  phoneLarge: 600,
+  tabletPortrait: 768,
+  tabletLandscape: 1024,
+  desktopSmall: 1280,
+  desktopMedium: 1440,
+  desktopLarge: 1920,
+);
 
 @mixin media-max($breakpoint) {
-  @include check-breakpoint($breakpoint);
-
-  @media screen and (max-width: var(--breakpoint-#{$breakpoint})) {
-    @content;
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: #{map-get($breakpoints, $breakpoint) - 1}px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
   }
 }
 
 @mixin media-min($breakpoint) {
-  @include check-breakpoint($breakpoint);
-
-  @media screen and (min-width: var(--breakpoint-#{$breakpoint})) {
-    @content;
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: #{map-get($breakpoints, $breakpoint)}px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
   }
 }
