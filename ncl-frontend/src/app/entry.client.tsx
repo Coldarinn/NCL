@@ -5,6 +5,8 @@ import { matchRoutes } from "react-router-dom"
 import { routes } from "./router/routes"
 import { Router } from "./router"
 
+import "@/shared/styles/main.scss"
+
 hydrate()
 
 async function hydrate() {

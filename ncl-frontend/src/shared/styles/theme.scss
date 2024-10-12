@@ -1,0 +1,19 @@
+:root {
+  --bg-main: #ffffff;
+  --bg-main-contrast: #0c21c1;
+  --bg-secondary: #000842;
+
+  --text-main: #000000;
+  --text-main-contrast: #ffffff;
+  --text-secondary: #0c21c1;
+}
+
+[data-theme="dark"] {
+  --bg-main: #ffffff;
+  --bg-main-contrast: #0c21c1;
+  --bg-secondary: #000842;
+
+  --text-main: #000000;
+  --text-main-contrast: #ffffff;
+  --text-secondary: #0c21c1;
+}
