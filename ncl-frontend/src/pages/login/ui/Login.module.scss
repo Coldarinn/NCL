@@ -37,3 +37,29 @@
   display: grid;
   gap: var(--gap-16);
 }
+
+.passwordField {
+  position: relative;
+}
+
+.passwordForgot {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  font-size: 12px;
+  color: var(--color-accent);
+}
+
+.signUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-8);
+
+  font-size: 14px;
+
+  a {
+    color: var(--color-accent);
+  }
+}

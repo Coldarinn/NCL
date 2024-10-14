@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, useRef, useState } from "react"
+import { FC, InputHTMLAttributes, ReactNode, useRef, useState } from "react"
 import cls from "./Input.module.scss"
 
 import EyeIcon from "@/shared/assets/icons/eye.svg"
@@ -12,7 +12,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   withError?: boolean
 }
 
-export const Input: React.FC<InputProps> = ({ label, rightAddons, error, withError, ...props }) => {
+export const Input: FC<InputProps> = ({ label, rightAddons, error, withError, className, ...props }) => {
   const rightAddonsRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -30,7 +30,7 @@ export const Input: React.FC<InputProps> = ({ label, rightAddons, error, withErr
   }, [])
 
   return (
-    <div className={cls.wrapper}>
+    <div className={classNames(cls.wrapper, className)}>
       <label className={cls.label}>{label}</label>
       <div className={cls.inputContainer}>
         <input className={cls.input} ref={inputRef} {...props} type={isPasswordHidden ? "password" : ""} />
