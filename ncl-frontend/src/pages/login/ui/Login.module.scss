@@ -1,0 +1,39 @@
+.wrapper {
+  padding-right: var(--gap-48);
+
+  display: grid;
+  gap: var(--gap-48);
+}
+
+.header {
+  display: grid;
+  gap: var(--gap-24);
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.subtitle {
+  display: grid;
+  a {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+}
+
+.body {
+  display: grid;
+  gap: var(--gap-32);
+}
+
+.form {
+  display: grid;
+  gap: var(--gap-32);
+}
+
+.anotherLogin {
+  display: grid;
+  gap: var(--gap-16);
+}

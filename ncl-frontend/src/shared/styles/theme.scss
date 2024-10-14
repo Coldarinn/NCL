@@ -1,19 +1,23 @@
 :root {
   --bg-main: #ffffff;
-  --bg-main-contrast: #0c21c1;
-  --bg-secondary: #000842;
+  --bg-main-contrast: #000000;
+  --bg-second: #f2f2f2;
 
   --text-main: #000000;
   --text-main-contrast: #ffffff;
-  --text-secondary: #0c21c1;
+  --text-second: #808080;
+
+  --stroke-second: #e5e5e5;
 }
 
 [data-theme="dark"] {
   --bg-main: #ffffff;
-  --bg-main-contrast: #0c21c1;
-  --bg-secondary: #000842;
+  --bg-main-contrast: #000000;
+  --bg-second: #f2f2f2;
 
   --text-main: #000000;
   --text-main-contrast: #ffffff;
-  --text-secondary: #0c21c1;
+  --text-second: #808080;
+
+  --stroke-second: #e5e5e5;
 }
