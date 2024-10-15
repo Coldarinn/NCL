@@ -3,37 +3,29 @@ import cls from "./Login.module.scss"
 import { InputField } from "@/shared/ui/Input"
 import { Button } from "@/shared/ui/Button"
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
-import { minCountChar, required } from "@/shared/utils/validators"
+import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
 
-interface LoginValues {
+interface ILogin {
   email: string
   password: string
 }
 
 export const Login = () => {
-  const initialValues: LoginValues = { email: "", password: "" }
+  const initialValues: ILogin = { email: "", password: "" }
 
-  const login = (values: LoginValues, { setSubmitting }: FormikHelpers<LoginValues>) => {
+  const login = (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
     console.log("values: ", values)
     setSubmitting(false)
   }
 
   return (
     <div className={cls.wrapper}>
-      <div className={cls.header}>
-        <div className={cls.title}>Sign in</div>
-        <div className={cls.subtitle}>
-          <div>If you don’t have an account register</div>
-          <div>
-            You can <Link to="/auth/register">Register here!</Link>
-          </div>
-        </div>
-      </div>
+      <div className={cls.title}>Sign in</div>
       <div className={cls.body}>
-        <Formik<LoginValues> validateOnMount initialValues={initialValues} onSubmit={login}>
+        <Formik<ILogin> initialValues={initialValues} onSubmit={login}>
           {() => (
             <Form className={cls.form}>
-              <Field name="email" validate={required}>
+              <Field name="email" validate={composeValidators(required, email)}>
                 {({ field, meta }: FieldProps) => <InputField label="Email" placeholder="Enter email" field={field} meta={meta} />}
               </Field>
 

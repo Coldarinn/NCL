@@ -1,10 +1,11 @@
 import { RouteObject } from "react-router-dom"
-import { Home } from "../../pages/home"
 import { Layout } from "./layouts/Default"
-import { NoMatch } from "./NoMatch"
 import { Auth } from "./layouts/Auth"
-import { Login } from "../../pages/login"
-import { Registration } from "../../pages/registration"
+import { NoMatch } from "./NoMatch"
+import { Login } from "@/pages/login"
+import { Registration } from "@/pages/registration"
+import { Reset } from "@/pages/reset"
+import { Home } from "@/pages/home"
 
 export const routes: RouteObject[] = [
   {
@@ -32,6 +33,10 @@ export const routes: RouteObject[] = [
       {
         path: "/auth/registration",
         element: <Registration />,
+      },
+      {
+        path: "/auth/reset",
+        element: <Reset />,
       },
     ],
   },

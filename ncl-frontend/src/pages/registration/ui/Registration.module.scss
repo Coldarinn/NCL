@@ -10,14 +10,6 @@
   font-weight: 500;
 }
 
-.subtitle {
-  display: grid;
-  a {
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-}
-
 .body {
   display: grid;
   gap: var(--gap-32);
@@ -28,25 +20,7 @@
   gap: var(--gap-32);
 }
 
-.anotherLogin {
-  display: grid;
-  gap: var(--gap-16);
-}
-
-.passwordField {
-  position: relative;
-}
-
-.passwordForgot {
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  font-size: 12px;
-  color: var(--color-accent);
-}
-
-.signUp {
+.signIn {
   margin-top: calc(-1 * var(--gap-16));
 
   display: flex;
