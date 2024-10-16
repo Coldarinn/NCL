@@ -3,6 +3,7 @@ import { PrismaService } from "@/prisma.service"
 import { User } from "@prisma/client"
 import { AuthDto } from "@/auth/dto/auth.dto"
 import { hash } from "argon2"
+import { UserDto } from "./dto/user.dto"
 
 @Injectable()
 export class UserService {
@@ -28,5 +29,15 @@ export class UserService {
     const user = { ...dto, password: await hash(dto.password) }
 
     return this.prisma.user.create({ data: user })
+  }
+
+  async update(id: User["id"], dto: UserDto) {
+    let data = dto
+
+    if (dto.password) {
+      data = { ...dto, password: await hash(dto.password) }
+    }
+
+    return this.prisma.user.update({ where: { id }, data })
   }
 }
