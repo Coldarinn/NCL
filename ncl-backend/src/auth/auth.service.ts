@@ -4,12 +4,15 @@ import { JwtService } from "@nestjs/jwt"
 import { AuthDto } from "./dto/auth.dto"
 import { User } from "@prisma/client"
 import { verify } from "argon2"
+import { ConfigService } from "@nestjs/config"
+import { Response } from "express"
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwt: JwtService,
-    private userService: UserService
+    private userService: UserService,
+    private configService: ConfigService
   ) {}
 
   async login(dto: AuthDto) {
@@ -51,5 +54,43 @@ export class AuthService {
     })
 
     return { accessToken, refreshToken }
+  }
+
+  async getNewTokens(refreshToken: string) {
+    const result = await this.jwt.verifyAsync(refreshToken)
+    if (!result) throw new UnauthorizedException("Invalid refresh token")
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = await this.userService.getById(result.id)
+
+    const tokens = this.issueTokens(user.id)
+
+    return {
+      user,
+      ...tokens,
+    }
+  }
+
+  addRefreshTokenToResponse(res: Response, refreshToken: string) {
+    const expiresIn = new Date()
+    expiresIn.setDate(expiresIn.getDate() + 7)
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      domain: this.configService.get("DOMAIN"),
+      expires: expiresIn,
+      secure: true,
+      sameSite: "lax",
+    })
+  }
+
+  removeRefreshTokenFromResponse(res: Response) {
+    res.cookie("refreshToken", "", {
+      httpOnly: true,
+      domain: this.configService.get("DOMAIN"),
+      expires: new Date(0),
+      secure: true,
+      sameSite: "lax",
+    })
   }
 }
