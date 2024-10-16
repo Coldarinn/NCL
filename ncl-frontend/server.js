@@ -2,6 +2,9 @@ import { fileURLToPath } from "url"
 import path from "path"
 import fsp from "fs/promises"
 import express from "express"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 let root = process.cwd()
 let isProduction = process.env.NODE_ENV === "production"
@@ -73,4 +76,4 @@ async function createServer() {
   return app
 }
 
-createServer().then((app) => app.listen(3000, () => console.log("HTTP server is running at http://localhost:3000")))
+createServer().then((app) => app.listen(process.env.PORT, () => console.log(`HTTP server is running at http://localhost:${process.env.PORT}`)))

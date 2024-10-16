@@ -9,6 +9,8 @@ import { Response } from "express"
 
 @Injectable()
 export class AuthService {
+  REFRESH_TOKEN = "refreshToken"
+
   constructor(
     private jwt: JwtService,
     private userService: UserService,
@@ -75,7 +77,7 @@ export class AuthService {
     const expiresIn = new Date()
     expiresIn.setDate(expiresIn.getDate() + 7)
 
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie(this.REFRESH_TOKEN, refreshToken, {
       httpOnly: true,
       domain: this.configService.get("DOMAIN"),
       expires: expiresIn,
@@ -85,7 +87,7 @@ export class AuthService {
   }
 
   removeRefreshTokenFromResponse(res: Response) {
-    res.cookie("refreshToken", "", {
+    res.cookie(this.REFRESH_TOKEN, "", {
       httpOnly: true,
       domain: this.configService.get("DOMAIN"),
       expires: new Date(0),
