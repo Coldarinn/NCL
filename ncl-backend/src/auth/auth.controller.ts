@@ -10,7 +10,13 @@ export class AuthController {
   @HttpCode(200)
   @Post("login")
   async login(@Body() dto: AuthDto) {
-    const user = await this.authService.login(dto)
-    return user
+    return await this.authService.login(dto)
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Post("registration")
+  async registration(@Body() dto: AuthDto) {
+    return await this.authService.registration(dto)
   }
 }
