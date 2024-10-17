@@ -4,18 +4,13 @@ import { InputField } from "@/shared/ui/Input"
 import { Button } from "@/shared/ui/Button"
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
-
-interface ILogin {
-  email: string
-  password: string
-}
+import { fetchLogin, ILogin } from "../api"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }
 
-  const login = (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
-    console.log("values: ", values)
-    setSubmitting(false)
+  const login = async (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
+    await fetchLogin(values).finally(() => setSubmitting(false))
   }
 
   return (
@@ -23,7 +18,7 @@ export const Login = () => {
       <div className={cls.title}>Sign in</div>
       <div className={cls.body}>
         <Formik<ILogin> initialValues={initialValues} onSubmit={login}>
-          {() => (
+          {({ isSubmitting }) => (
             <Form className={cls.form}>
               <Field name="email" validate={composeValidators(required, email)}>
                 {({ field, meta }: FieldProps) => <InputField label="Email" placeholder="Enter email" field={field} meta={meta} />}
@@ -41,7 +36,9 @@ export const Login = () => {
                 </Link>
               </div>
 
-              <Button type="submit">Sign in</Button>
+              <Button type="submit" isLoading={isSubmitting}>
+                Sign in
+              </Button>
             </Form>
           )}
         </Formik>

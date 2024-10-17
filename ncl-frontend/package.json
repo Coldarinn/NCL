@@ -13,6 +13,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reatom/async": "^3.16.2",
+    "@reatom/core": "^3.9.0",
+    "@reatom/hooks": "^3.5.5",
+    "@reatom/npm-react": "^3.10.0",
     "classnames": "^2.5.1",
     "compression": "^1.7.4",
     "dotenv": "^16.4.5",

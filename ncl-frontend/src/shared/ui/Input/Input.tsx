@@ -33,7 +33,7 @@ export const Input: FC<InputProps> = ({ label, rightAddons, error, withError, cl
     <div className={classNames(cls.wrapper, className)}>
       <label className={cls.label}>{label}</label>
       <div className={cls.inputContainer}>
-        <input className={cls.input} ref={inputRef} {...props} type={isPasswordHidden ? "password" : ""} />
+        <input className={cls.input} ref={inputRef} {...props} type={isPassword ? (isPasswordHidden ? "password" : "text") : props.type || "text"} />
         {(rightAddons || isPassword) && (
           <div className={cls.rightAddons} ref={rightAddonsRef}>
             {rightAddons}

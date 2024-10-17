@@ -6,6 +6,10 @@ import { matchRoutes } from "react-router-dom"
 
 import { routes } from "./router/routes"
 import { Router } from "./router"
+import { createCtx } from "@reatom/core"
+import { reatomContext } from "@reatom/npm-react"
+
+const ctx = createCtx()
 
 hydrate()
 
@@ -24,7 +28,9 @@ async function hydrate() {
   ReactDOM.hydrateRoot(
     document.getElementById("app")!,
     <React.StrictMode>
-      <Router />
+      <reatomContext.Provider value={ctx}>
+        <Router />
+      </reatomContext.Provider>
     </React.StrictMode>
   )
 }
