@@ -1,17 +1,24 @@
 import { RouteObject } from "react-router-dom"
-import { Layout } from "./layouts/Default"
 import { Auth } from "./layouts/Auth"
 import { Login } from "@/pages/login"
 import { Registration } from "@/pages/registration"
 import { Reset } from "@/pages/reset"
 import { Home } from "@/pages/home"
-import { AppRoutes } from "@/shared/router"
+import { redirect } from "@/shared/router"
 import { NoMatch } from "@/pages/noMatch"
+import { getAccessToken } from "@/shared/api"
+import { Layout } from "./layouts/Default"
 
 export const routes: RouteObject[] = [
   {
-    path: "/" satisfies keyof AppRoutes,
+    path: "/",
     element: <Layout />,
+    loader: () => {
+      if (!getAccessToken()) {
+        return redirect({ to: "/auth/login" })
+      }
+      return null
+    },
     children: [
       {
         index: true,
@@ -20,19 +27,25 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    path: "/auth" satisfies keyof AppRoutes,
+    path: "/auth",
     element: <Auth />,
+    loader: () => {
+      if (getAccessToken()) {
+        return redirect({ to: "/" })
+      }
+      return null
+    },
     children: [
       {
-        path: "/auth/login" satisfies keyof AppRoutes,
+        path: "/auth/login",
         element: <Login />,
       },
       {
-        path: "/auth/registration" satisfies keyof AppRoutes,
+        path: "/auth/registration",
         element: <Registration />,
       },
       {
-        path: "/auth/reset" satisfies keyof AppRoutes,
+        path: "/auth/reset",
         element: <Reset />,
       },
     ],

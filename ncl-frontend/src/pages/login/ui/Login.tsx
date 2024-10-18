@@ -5,12 +5,17 @@ import { Button } from "@/shared/ui/Button"
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchLogin, ILogin } from "../api"
+import { useNavigate } from "@/shared/router"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }
 
+  const navigate = useNavigate()
+
   const login = async (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
-    await fetchLogin(values).finally(() => setSubmitting(false))
+    await fetchLogin(values)
+      .then(() => navigate("/"))
+      .finally(() => setSubmitting(false))
   }
 
   return (
@@ -31,9 +36,9 @@ export const Login = () => {
                   )}
                 </Field>
 
-                <Link to="/auth/reset" className={cls.passwordForgot}>
+                {/* <Link to="/auth/reset" className={cls.passwordForgot}>
                   Forgot password?
-                </Link>
+                </Link> */}
               </div>
 
               <Button type="submit" isLoading={isSubmitting}>

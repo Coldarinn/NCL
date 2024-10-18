@@ -1,9 +1,9 @@
-@import "./colors.scss";
-@import "./theme.scss";
-@import "./typography.scss";
-@import "./border-radius.scss";
-@import "./shadows.scss";
-@import "./gaps.scss";
+@use "./colors.scss";
+@use "./theme.scss";
+@use "./typography.scss";
+@use "./border-radius.scss";
+@use "./shadows.scss";
+@use "./gaps.scss";
 
 body,
 html {
@@ -61,6 +61,11 @@ canvas {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+img,
+picture {
+  pointer-events: none;
 }
 
 svg,
