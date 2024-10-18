@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom"
 import cls from "./Login.module.scss"
 import { InputField } from "@/shared/ui/Input"
 import { Button } from "@/shared/ui/Button"
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchLogin, ILogin } from "../api"
-import { useNavigate } from "@/shared/router"
+import { Link, useNavigate } from "@/shared/router"
 import Cookies from "js-cookie"
 import { ACCESS_TOKEN } from "@/shared/api"
 
