@@ -1,5 +1,3 @@
-import "@/shared/styles/main.scss"
-
 import type * as express from "express"
 import * as React from "react"
 import ReactDOMServer from "react-dom/server"

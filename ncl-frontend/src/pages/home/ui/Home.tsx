@@ -1,5 +1,6 @@
-import { Link } from "@/shared/router"
 import cls from "./Home.module.scss"
+
+import { Link } from "@/shared/router"
 
 export const Home = () => {
   return (

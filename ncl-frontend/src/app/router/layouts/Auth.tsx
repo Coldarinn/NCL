@@ -1,5 +1,6 @@
-import { Outlet } from "react-router-dom"
 import cls from "./Auth.module.scss"
+
+import { Outlet } from "react-router-dom"
 import LoginImg from "@/shared/assets/images/login.png"
 import LogoSvg from "@/shared/assets/icons/logo.svg"
 

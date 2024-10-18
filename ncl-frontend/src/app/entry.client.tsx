@@ -1,5 +1,3 @@
-import "@/shared/styles/main.scss"
-
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { matchRoutes } from "react-router-dom"
