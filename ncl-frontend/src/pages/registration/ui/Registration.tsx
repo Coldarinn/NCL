@@ -3,46 +3,58 @@ import cls from "./Registration.module.scss"
 import { InputField } from "@/shared/ui/Input"
 import { Button } from "@/shared/ui/Button"
 import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
-import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
+import { composeValidators, confirmPassword, email, minCountChar, required } from "@/shared/utils/validators"
+import { fetchRegistration, IRegistration } from "../api"
+import { useNavigate } from "@/shared/router"
+import Cookies from "js-cookie"
+import { ACCESS_TOKEN } from "@/shared/api"
 
-interface IRegistration {
-  email: string
-  password: string
+type TRegistration = IRegistration & {
   confirmPassword: string
 }
 
 export const Registration = () => {
-  const initialValues: IRegistration = { email: "", password: "", confirmPassword: "" }
+  const initialValues: TRegistration = { email: "", password: "", confirmPassword: "" }
 
-  const registration = (values: IRegistration, { setSubmitting }: FormikHelpers<IRegistration>) => {
-    console.log("values: ", values)
-    setSubmitting(false)
+  const navigate = useNavigate()
+
+  const registration = async (values: TRegistration, { setSubmitting }: FormikHelpers<TRegistration>) => {
+    await fetchRegistration({ email: values.email, password: values.password })
+      .then((response) => {
+        if (response.data) {
+          Cookies.set(ACCESS_TOKEN, response.data?.accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict" })
+          navigate("/")
+        }
+      })
+      .finally(() => setSubmitting(false))
   }
 
   return (
     <div className={cls.wrapper}>
       <div className={cls.title}>Sign up</div>
       <div className={cls.body}>
-        <Formik<IRegistration> initialValues={initialValues} onSubmit={registration}>
-          {() => (
+        <Formik<TRegistration> initialValues={initialValues} onSubmit={registration}>
+          {({ values, isSubmitting }) => (
             <Form className={cls.form}>
               <Field name="email" validate={composeValidators(required, email)}>
                 {({ field, meta }: FieldProps) => <InputField label="Email" placeholder="Enter email" field={field} meta={meta} />}
               </Field>
 
-              <Field name="password" validate={minCountChar(4)}>
+              <Field name="password" validate={minCountChar(6)}>
                 {({ field, meta }: FieldProps) => (
                   <InputField type="password" label="Password" placeholder="Enter password" field={field} meta={meta} />
                 )}
               </Field>
 
-              <Field name="confirmPassword" validate={minCountChar(4)}>
+              <Field name="confirmPassword" validate={composeValidators(required, confirmPassword(values.password))}>
                 {({ field, meta }: FieldProps) => (
                   <InputField type="password" label="Confirm password" placeholder="Confirm password" field={field} meta={meta} />
                 )}
               </Field>
 
-              <Button type="submit">Sign up</Button>
+              <Button type="submit" isLoading={isSubmitting}>
+                Sign up
+              </Button>
             </Form>
           )}
         </Formik>

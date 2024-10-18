@@ -17,6 +17,17 @@ export class AuthController {
     return response
   }
 
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Post("registration")
+  async registration(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
+    const { refreshToken, ...response } = await this.authService.registration(dto)
+
+    this.authService.addRefreshTokenToResponse(res, refreshToken)
+
+    return response
+  }
+
   @HttpCode(200)
   @Post("refresh")
   async getNewTokens(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
@@ -31,13 +42,6 @@ export class AuthController {
     this.authService.addRefreshTokenToResponse(res, refreshToken)
 
     return response
-  }
-
-  @UsePipes(new ValidationPipe())
-  @HttpCode(200)
-  @Post("registration")
-  async registration(@Body() dto: AuthDto) {
-    return await this.authService.registration(dto)
   }
 
   @HttpCode(200)

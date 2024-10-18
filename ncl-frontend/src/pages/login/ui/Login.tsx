@@ -6,6 +6,8 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchLogin, ILogin } from "../api"
 import { useNavigate } from "@/shared/router"
+import Cookies from "js-cookie"
+import { ACCESS_TOKEN } from "@/shared/api"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }
@@ -14,7 +16,12 @@ export const Login = () => {
 
   const login = async (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
     await fetchLogin(values)
-      .then(() => navigate("/"))
+      .then((response) => {
+        if (response.data) {
+          Cookies.set(ACCESS_TOKEN, response.data?.accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict" })
+          navigate("/")
+        }
+      })
       .finally(() => setSubmitting(false))
   }
 
@@ -30,7 +37,7 @@ export const Login = () => {
               </Field>
 
               <div className={cls.passwordField}>
-                <Field name="password" validate={minCountChar(4)}>
+                <Field name="password" validate={minCountChar(6)}>
                   {({ field, meta }: FieldProps) => (
                     <InputField type="password" label="Password" placeholder="Enter password" field={field} meta={meta} />
                   )}
