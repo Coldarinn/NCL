@@ -13,10 +13,14 @@ export const routes: RouteObject[] = [
   {
     path: "/",
     element: <Layout />,
-    loader: () => {
-      if (!getAccessToken()) {
+    loader: ({ request }) => {
+      const cookieHeader = request.headers.get("cookie")
+      const accessToken = getAccessToken(cookieHeader)
+
+      if (!accessToken) {
         return redirect({ to: "/auth/login" })
       }
+
       return null
     },
     children: [
@@ -29,10 +33,14 @@ export const routes: RouteObject[] = [
   {
     path: "/auth",
     element: <Auth />,
-    loader: () => {
-      if (getAccessToken()) {
+    loader: ({ request }) => {
+      const cookieHeader = request.headers.get("cookie")
+      const accessToken = getAccessToken(cookieHeader)
+
+      if (accessToken) {
         return redirect({ to: "/" })
       }
+
       return null
     },
     children: [
