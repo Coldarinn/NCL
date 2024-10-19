@@ -22,7 +22,10 @@ async function createServer() {
    */
   let vite
 
-  if (!isProduction) {
+  if (isProduction) {
+    app.use((await import("compression")).default())
+    app.use(express.static(resolve("dist/client")))
+  } else {
     vite = await (
       await import("vite")
     ).createServer({
@@ -32,9 +35,6 @@ async function createServer() {
     })
 
     app.use(vite.middlewares)
-  } else {
-    app.use((await import("compression")).default())
-    app.use(express.static(resolve("dist/client")))
   }
 
   app.use("*", async (req, res) => {
@@ -44,19 +44,20 @@ async function createServer() {
       let template
       let render
 
-      if (!isProduction) {
+      if (isProduction) {
+        template = await fsp.readFile(resolve("dist/client/index.html"), "utf8")
+        render = await import("./dist/server/entry.server.js").then((m) => m.render)
+      } else {
         template = await fsp.readFile(resolve("index.html"), "utf8")
         template = await vite.transformIndexHtml(url, template)
         render = await vite.ssrLoadModule("src/app/entry.server.tsx").then((m) => m.render)
-      } else {
-        template = await fsp.readFile(resolve("dist/client/index.html"), "utf8")
-        render = await import("./dist/server/entry.server.js").then((m) => m.render)
       }
 
       try {
         let appHtml = await render(req, res)
         let html = template.replace("<!--app-html-->", appHtml)
         res.setHeader("Content-Type", "text/html")
+
         return res.status(200).end(html)
       } catch (e) {
         if (e instanceof Response && e.status >= 300 && e.status <= 399) {
