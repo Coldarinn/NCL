@@ -16,13 +16,16 @@ import { AuthDto } from "./dto/auth.dto"
 import { Response, Request } from "express"
 import { UserService } from "@/user/user.service"
 import { EmailService } from "@/email/email.service"
+import { generateResetPasswordForEmail } from "@/email/ResetPassword"
+import { ConfigService } from "@nestjs/config"
 
 @Controller("auth")
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly emailService: EmailService
+    private readonly emailService: EmailService,
+    private readonly configService: ConfigService
   ) {}
 
   @HttpCode(200)
@@ -56,18 +59,11 @@ export class AuthController {
 
     const newPassword = await this.authService.changePassword(user.id)
 
-    console.log("newPassword: ", newPassword)
-
     try {
       await this.emailService.sendEmail(
         email,
         "Смена пароля",
-        "asdsad"
-        // generateResetPasswordForEmail(
-        //   email,
-        //   password,
-        //   this.configService.get("BASE_URL"),
-        // ),
+        await generateResetPasswordForEmail(email, newPassword, this.configService.get("FRONTEND_URL"))
       )
       return true
     } catch {
