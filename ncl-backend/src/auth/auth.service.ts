@@ -84,7 +84,7 @@ export class AuthService {
       domain: this.configService.get("DOMAIN"),
       expires: expiresIn,
       secure: true,
-      sameSite: "lax",
+      sameSite: "strict",
     })
   }
 
@@ -94,7 +94,7 @@ export class AuthService {
       domain: this.configService.get("DOMAIN"),
       expires: new Date(0),
       secure: true,
-      sameSite: "lax",
+      sameSite: "strict",
     })
   }
 }

@@ -8,6 +8,7 @@ import { redirect } from "@/shared/router"
 import { NoMatch } from "@/pages/noMatch"
 import { getAccessToken } from "@/shared/api"
 import { Layout } from "./layouts/Default"
+import { About } from "@/pages/about"
 
 export const routes: RouteObject[] = [
   {
@@ -27,6 +28,10 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
   },

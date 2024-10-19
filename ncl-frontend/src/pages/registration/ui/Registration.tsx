@@ -6,8 +6,7 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, confirmPassword, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchRegistration, IRegistration } from "../api"
 import { Link, useNavigate } from "@/shared/router"
-import Cookies from "js-cookie"
-import { ACCESS_TOKEN } from "@/shared/api"
+import { saveAccessToken } from "@/shared/api/tokenManager"
 
 type TRegistration = IRegistration & {
   confirmPassword: string
@@ -22,7 +21,7 @@ export const Registration = () => {
     await fetchRegistration({ email: values.email, password: values.password })
       .then((response) => {
         if (response.data) {
-          Cookies.set(ACCESS_TOKEN, response.data?.accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict" })
+          saveAccessToken(response.data?.accessToken)
           navigate("/")
         }
       })

@@ -1,5 +1,5 @@
 import { endpoints } from "./endpoints"
-import { ACCESS_TOKEN, getAccessToken, removeFromStorage, saveAccessToken } from "./tokenManager"
+import { ACCESS_TOKEN, getAccessToken, removeAccessToken, saveAccessToken } from "./tokenManager"
 
 export const fetchInstance = async (endpoint: string, options: RequestInit = {}): Promise<Response> => {
   const url = `${import.meta.env.VITE_BACKEND_URL}/api${endpoint}`
@@ -39,7 +39,7 @@ export const fetchInstance = async (endpoint: string, options: RequestInit = {})
           },
         })
       } else {
-        removeFromStorage()
+        removeAccessToken()
 
         const refreshErrorData = await response.json()
         throw new Error(refreshErrorData.message || "Anauthorized")

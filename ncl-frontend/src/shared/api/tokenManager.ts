@@ -14,9 +14,9 @@ export const getAccessToken = (cookieHeader?: string | null) => {
 }
 
 export const saveAccessToken = (accessToken: string) => {
-  Cookies.set(ACCESS_TOKEN, accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict" })
+  Cookies.set(ACCESS_TOKEN, accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict", secure: true })
 }
 
-export const removeFromStorage = () => {
+export const removeAccessToken = () => {
   Cookies.remove(ACCESS_TOKEN)
 }

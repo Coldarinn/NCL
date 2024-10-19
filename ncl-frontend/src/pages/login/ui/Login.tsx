@@ -6,8 +6,7 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchLogin, ILogin } from "../api"
 import { Link, useNavigate } from "@/shared/router"
-import Cookies from "js-cookie"
-import { ACCESS_TOKEN } from "@/shared/api"
+import { saveAccessToken } from "@/shared/api/tokenManager"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }
@@ -18,7 +17,7 @@ export const Login = () => {
     await fetchLogin(values)
       .then((response) => {
         if (response.data) {
-          Cookies.set(ACCESS_TOKEN, response.data?.accessToken, { domain: import.meta.env.VITE_DOMAIN, sameSite: "strict" })
+          saveAccessToken(response.data?.accessToken)
           navigate("/")
         }
       })
@@ -43,9 +42,9 @@ export const Login = () => {
                   )}
                 </Field>
 
-                {/* <Link to="/auth/reset" className={cls.passwordForgot}>
+                <Link to="/auth/reset" className={cls.passwordForgot}>
                   Forgot password?
-                </Link> */}
+                </Link>
               </div>
 
               <Button type="submit" isLoading={isSubmitting}>
