@@ -18,6 +18,7 @@ import { UserService } from "@/user/user.service"
 import { EmailService } from "@/email/email.service"
 import { generateResetPasswordForEmail } from "@/email/ResetPassword"
 import { ConfigService } from "@nestjs/config"
+import { generateWelcomeForEmail } from "@/email/Welcome"
 
 @Controller("auth")
 export class AuthController {
@@ -41,12 +42,20 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post("registration")
-  async registration(@Body() dto: AuthDto, @Res({ passthrough: true }) res: Response) {
-    const { refreshToken, ...response } = await this.authService.registration(dto)
+  async registration(@Body() dto: AuthDto) {
+    const { verificationToken, email, id } = await this.authService.registration(dto)
 
-    this.authService.addRefreshTokenToResponse(res, refreshToken)
-
-    return response
+    try {
+      await this.emailService.sendEmail(
+        email,
+        "Welcome to NCL",
+        await generateWelcomeForEmail(`${this.configService.get("BACKEND_URL")}/api/verify/${verificationToken}`)
+      )
+      return true
+    } catch {
+      await this.userService.delete(id)
+      throw new InternalServerErrorException("Failed to register. Something went wrong")
+    }
   }
 
   @HttpCode(200)

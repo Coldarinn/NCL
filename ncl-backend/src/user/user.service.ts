@@ -4,6 +4,7 @@ import { User } from "@prisma/client"
 import { AuthDto } from "@/auth/dto/auth.dto"
 import { hash } from "argon2"
 import { UserDto } from "./dto/user.dto"
+import { v4 as uuid } from "uuid"
 
 @Injectable()
 export class UserService {
@@ -26,7 +27,7 @@ export class UserService {
   }
 
   async create(dto: AuthDto) {
-    const user = { ...dto, password: await hash(dto.password) }
+    const user = { ...dto, password: await hash(dto.password), verificationToken: uuid() }
 
     return this.prisma.user.create({ data: user })
   }
@@ -38,6 +39,12 @@ export class UserService {
       data = { ...dto, password: await hash(dto.password) }
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return this.prisma.user.update({ where: { id }, data })
+  }
+
+  async delete(id: User["id"]) {
+    await this.prisma.user.delete({ where: { id } })
   }
 }

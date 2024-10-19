@@ -1,5 +1,5 @@
 import { UserService } from "@/user/user.service"
-import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common"
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { AuthDto } from "./dto/auth.dto"
 import { User } from "@prisma/client"
@@ -7,6 +7,7 @@ import { verify } from "argon2"
 import { ConfigService } from "@nestjs/config"
 import { Response } from "express"
 import { randomBytes } from "crypto"
+import { PrismaService } from "@/prisma.service"
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private jwt: JwtService,
     private userService: UserService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private prisma: PrismaService
   ) {}
 
   async login(dto: AuthDto) {
@@ -31,12 +33,29 @@ export class AuthService {
     const isUserExist = await this.userService.getByEmail(dto.email)
     if (isUserExist) throw new NotFoundException("User already exists")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...user } = await this.userService.create(dto)
+    const { verificationToken, email, id } = await this.userService.create(dto)
 
-    const tokens = this.issueTokens(user.id)
+    return { verificationToken, email, id }
+  }
 
-    return { ...tokens, user }
+  async verify(verificationToken: User["verificationToken"]) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        verificationToken,
+      },
+    })
+
+    if (!user) throw new Error("Invalid token")
+
+    await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        isVerified: true,
+        verificationToken: null,
+      },
+    })
+
+    return "Email verified successfully"
   }
 
   async changePassword(userId: User["id"]) {
@@ -52,6 +71,8 @@ export class AuthService {
 
     const isValid = await verify(user.password, dto.password)
     if (!isValid) throw new UnauthorizedException("Invalid password")
+
+    if (!user.isVerified) throw new ForbiddenException("Not verified")
 
     return user
   }

@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, MinLength } from "class-validator"
+import { IsBoolean, IsEmail, IsOptional, IsString, MinLength } from "class-validator"
 
 export class UserDto {
   @IsOptional()
@@ -15,4 +15,12 @@ export class UserDto {
   @IsOptional()
   @IsString()
   name?: string
+
+  @IsOptional()
+  @IsBoolean()
+  isVerified?: string
+
+  @IsOptional()
+  @IsString()
+  verificationToken?: string | null
 }
