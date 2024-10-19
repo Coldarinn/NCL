@@ -10,7 +10,7 @@ type ResetPasswordProps = {
 }
 
 const ResetPassword = ({ username, password, description, frontendUrl }: ResetPasswordProps) => {
-  const previewText = `Password reset NCL ${username}`
+  const previewText = `Password reset NCL${username || ""}`
 
   return (
     <Html lang="ru">
