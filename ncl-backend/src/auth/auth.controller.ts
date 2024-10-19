@@ -62,8 +62,8 @@ export class AuthController {
     try {
       await this.emailService.sendEmail(
         email,
-        "Смена пароля",
-        await generateResetPasswordForEmail(email, newPassword, this.configService.get("FRONTEND_URL"))
+        "Password reset NCL",
+        await generateResetPasswordForEmail(user.name, newPassword, `${this.configService.get("FRONTEND_URL")}/auth/login`)
       )
       return true
     } catch {

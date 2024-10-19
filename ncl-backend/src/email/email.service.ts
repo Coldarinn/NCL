@@ -5,7 +5,7 @@ import { Transporter, createTransport } from "nodemailer"
 @Injectable()
 export class EmailService {
   private mailer: Transporter
-  mailContacts = "ncl@test.ru"
+  mailContacts = this.configService.get("EMAIL_USER")
 
   constructor(private configService: ConfigService) {
     this.mailer = createTransport({
@@ -13,7 +13,7 @@ export class EmailService {
       port: this.configService.get("EMAIL_PORT"),
       secure: true,
       auth: {
-        user: this.configService.get("EMAIL_USER"),
+        user: this.mailContacts,
         pass: this.configService.get("EMAIL_PASSWORD"),
       },
     })
@@ -27,8 +27,8 @@ export class EmailService {
         subject,
         html,
       })
-    } catch (error) {
-      return Promise.reject(new Error("Email not sent")).catch(() => console.log("Email not sent"))
+    } catch {
+      throw new Error()
     }
   }
 }
