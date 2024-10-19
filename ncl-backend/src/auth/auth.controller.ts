@@ -1,14 +1,28 @@
-import { Body, Controller, HttpCode, NotFoundException, Post, Req, Res, UnauthorizedException, UsePipes, ValidationPipe } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  HttpCode,
+  InternalServerErrorException,
+  NotFoundException,
+  Post,
+  Req,
+  Res,
+  UnauthorizedException,
+  UsePipes,
+  ValidationPipe,
+} from "@nestjs/common"
 import { AuthService } from "./auth.service"
 import { AuthDto } from "./dto/auth.dto"
 import { Response, Request } from "express"
 import { UserService } from "@/user/user.service"
+import { EmailService } from "@/email/email.service"
 
 @Controller("auth")
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly emailService: EmailService
   ) {}
 
   @HttpCode(200)
@@ -44,7 +58,21 @@ export class AuthController {
 
     console.log("newPassword: ", newPassword)
 
-    return true
+    try {
+      await this.emailService.sendEmail(
+        email,
+        "Смена пароля",
+        "asdsad"
+        // generateResetPasswordForEmail(
+        //   email,
+        //   password,
+        //   this.configService.get("BASE_URL"),
+        // ),
+      )
+      return true
+    } catch {
+      throw new InternalServerErrorException("Failed to send email")
+    }
   }
 
   @HttpCode(200)
