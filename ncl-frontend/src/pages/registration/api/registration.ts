@@ -6,5 +6,5 @@ interface RegistrationResponse {
 }
 
 export const fetchRegistration = async (body: IRegistration) => {
-  return await httpClient.post<RegistrationResponse, IRegistration>(endpoints.registration.endpoint, body)
+  return await httpClient[endpoints.registration.method]<RegistrationResponse, IRegistration>(endpoints.registration.endpoint, body)
 }

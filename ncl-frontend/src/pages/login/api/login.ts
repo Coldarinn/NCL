@@ -7,5 +7,5 @@ interface LoginResponse {
 }
 
 export const fetchLogin = async (body: ILogin) => {
-  return await httpClient.post<LoginResponse, ILogin>(endpoints.login.endpoint, body)
+  return await httpClient[endpoints.login.method]<LoginResponse, ILogin>(endpoints.login.endpoint, body)
 }

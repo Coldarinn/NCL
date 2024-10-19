@@ -11,4 +11,8 @@ export const endpoints = {
     endpoint: "/auth/refresh",
     method: "POST",
   },
+  reset: {
+    endpoint: "/auth/reset",
+    method: "POST",
+  },
 } as const

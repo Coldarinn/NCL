@@ -6,6 +6,7 @@ import { User } from "@prisma/client"
 import { verify } from "argon2"
 import { ConfigService } from "@nestjs/config"
 import { Response } from "express"
+import { randomBytes } from "crypto"
 
 @Injectable()
 export class AuthService {
@@ -36,6 +37,13 @@ export class AuthService {
     const tokens = this.issueTokens(user.id)
 
     return { ...tokens, user }
+  }
+
+  async changePassword(userId: User["id"]) {
+    const password = randomBytes(12).toString("hex").slice(0, 12)
+    await this.userService.update(userId, { password })
+
+    return password
   }
 
   private async validateUser(dto: AuthDto) {

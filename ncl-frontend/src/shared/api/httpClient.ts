@@ -7,25 +7,25 @@ interface ApiResponse<T> {
 }
 
 class HttpClient {
-  public async get<T>(url: string): Promise<ApiResponse<T>> {
+  public async GET<T>(url: string): Promise<ApiResponse<T>> {
     return this.request<T>(url, { method: "GET" })
   }
 
-  public async post<T, D>(url: string, data: D): Promise<ApiResponse<T>> {
+  public async POST<T, D>(url: string, data: D): Promise<ApiResponse<T>> {
     return this.request<T>(url, {
       method: "POST",
       body: JSON.stringify(data),
     })
   }
 
-  public async put<T, D>(url: string, data: D): Promise<ApiResponse<T>> {
+  public async PUT<T, D>(url: string, data: D): Promise<ApiResponse<T>> {
     return this.request<T>(url, {
       method: "PUT",
       body: JSON.stringify(data),
     })
   }
 
-  public async delete<T>(url: string): Promise<ApiResponse<T>> {
+  public async DELETE<T>(url: string): Promise<ApiResponse<T>> {
     return this.request<T>(url, { method: "DELETE" })
   }
 
