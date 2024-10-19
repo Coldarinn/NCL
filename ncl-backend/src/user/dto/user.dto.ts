@@ -18,7 +18,7 @@ export class UserDto {
 
   @IsOptional()
   @IsBoolean()
-  isVerified?: string
+  isVerified?: boolean
 
   @IsOptional()
   @IsString()

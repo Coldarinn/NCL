@@ -39,8 +39,6 @@ export class UserService {
       data = { ...dto, password: await hash(dto.password) }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return this.prisma.user.update({ where: { id }, data })
   }
 

@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   InternalServerErrorException,
   NotFoundException,
+  Param,
   Post,
   Req,
   Res,
@@ -19,6 +21,7 @@ import { EmailService } from "@/email/email.service"
 import { generateResetPasswordForEmail } from "@/email/ResetPassword"
 import { ConfigService } from "@nestjs/config"
 import { generateWelcomeForEmail } from "@/email/Welcome"
+import { User } from "@prisma/client"
 
 @Controller("auth")
 export class AuthController {
@@ -49,12 +52,22 @@ export class AuthController {
       await this.emailService.sendEmail(
         email,
         "Welcome to NCL",
-        await generateWelcomeForEmail(`${this.configService.get("BACKEND_URL")}/api/verify/${verificationToken}`)
+        await generateWelcomeForEmail(`${this.configService.get("BACKEND_URL")}/api/auth/verify/${verificationToken}`)
       )
       return true
     } catch {
       await this.userService.delete(id)
       throw new InternalServerErrorException("Failed to register. Something went wrong")
+    }
+  }
+
+  @Get("verify/:verificationToken")
+  async verifyEmail(@Param("verificationToken") verificationToken: User["verificationToken"], @Res() res: Response) {
+    try {
+      await this.authService.verify(verificationToken)
+      return res.redirect(`${this.configService.get("FRONTEND_URL")}/auth/login?verified=true`)
+    } catch {
+      return res.redirect(`${this.configService.get("FRONTEND_URL")}/auth/login?verified=false`)
     }
   }
 

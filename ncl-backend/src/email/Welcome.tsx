@@ -45,7 +45,7 @@ const Welcome = ({ verifyLink }: WelcomeProps) => {
 }
 
 Welcome.PreviewProps = {
-  verifyLink: "http://localhost:8080/api/verify/xxxxxxxxxxxxxxxxxxxxxxxxx",
+  verifyLink: "http://localhost:8080/api/auth/verify/xxxxxxxxxxxxxxxxxxxxxxxxx",
 } as WelcomeProps
 
 export default Welcome
