@@ -13,45 +13,53 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--gap-8);
 
-  border-radius: var(--radius-4);
+  border-radius: var(--radius-8);
   box-shadow: var(--shadow-m);
 
   position: relative;
 }
 
 .success {
-  background-color: #dff0d8;
-  color: #3c763d;
+  background: var(--color-success);
+  color: var(--text-main);
 }
 
 .error {
-  background-color: #f2dede;
-  color: #a94442;
+  background: var(--color-error);
+  color: var(--text-main);
 }
 
 .info {
-  background-color: #d9edf7;
-  color: #31708f;
+  background: var(--color-info);
+  color: var(--text-main);
 }
 
 .warning {
-  background-color: #fcf8e3;
-  color: #8a6d3b;
+  background: var(--color-warning);
+  color: var(--text-main);
 }
 
 .closeButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: inherit;
+  width: 16px;
+  height: 16px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .progressBar {
+  height: 3px;
+
   position: absolute;
   bottom: 0;
-  left: 0;
-  height: 3px;
-  background-color: rgba(0, 0, 0, 0.2);
+  left: 2px;
+
+  background: var(--color-black);
+  opacity: 0.2;
+
   transition: width 0.1s linear;
 }

@@ -4,6 +4,7 @@ import styles from "./Alerts.module.scss"
 import { IAlert } from "./types"
 import { useAction, useAtom } from "@reatom/npm-react"
 import classNames from "classnames"
+import CrossIcon from "@/shared/assets/icons/cross.svg"
 
 export const Alerts = () => {
   const [alerts] = useAtom(alertsAtom)
@@ -52,7 +53,7 @@ const AlertItem = ({ alert }: { alert: IAlert }) => {
     >
       <span>{alert.message}</span>
       <button onClick={() => removeAlert(alert.id)} className={styles.closeButton}>
-        x
+        <CrossIcon />
       </button>
       <div className={styles.progressBar} style={{ width: `${progress}%` }} />
     </div>

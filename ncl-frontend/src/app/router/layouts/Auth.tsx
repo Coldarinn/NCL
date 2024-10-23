@@ -10,6 +10,9 @@ export const Auth = () => {
   const addAlert = useAction(addAlertAction)
   const handleShowAlert = () => {
     addAlert({ message: "Это успешное сообщение!", type: "success", timeout: 5000 })
+    addAlert({ message: "Это успешное сообщение!", type: "error", timeout: 5000 })
+    addAlert({ message: "Это успешное сообщение!", type: "warning", timeout: 5000 })
+    addAlert({ message: "Это успешное сообщение!", type: "info", timeout: 5000 })
   }
 
   return (
