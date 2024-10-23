@@ -9,11 +9,6 @@ export const addAlert = action((ctx, data: Omit<IAlert, "id">) => {
     id: uuid(),
     ...data,
   }
-
-  setTimeout(() => {
-    removeAlert(ctx, alert.id)
-  }, alert.timeout)
-
   alertsAtom(ctx, (prevAlerts) => [...prevAlerts, alert])
 }, "addAlert")
 

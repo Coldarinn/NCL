@@ -20,22 +20,36 @@ export const Alerts = () => {
 const percentsStep = 2
 const AlertItem = ({ alert }: { alert: IAlert }) => {
   const [progress, setProgress] = useState(100)
+  const [isPaused, setIsPaused] = useState(false)
 
   const removeAlert = useAction(removeAlertAction)
 
   useEffect(() => {
+    if (progress === 0) {
+      removeAlert(alert.id)
+      return
+    }
+
     const interval = setInterval(
       () => {
-        setProgress((prev) => Math.max(prev - percentsStep, 0))
+        if (!isPaused) {
+          setProgress((prev) => Math.max(prev - percentsStep, 0))
+        }
       },
       ((alert.timeout || 5000) * percentsStep) / 100
     )
 
     return () => clearInterval(interval)
-  }, [alert.timeout])
+  }, [isPaused, progress, alert.timeout, removeAlert, alert.id])
 
   return (
-    <div className={classNames(styles.alert, styles[alert.type])}>
+    <div
+      className={classNames(styles.alert, styles[alert.type])}
+      onMouseOver={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+    >
       <span>{alert.message}</span>
       <button onClick={() => removeAlert(alert.id)} className={styles.closeButton}>
         x
