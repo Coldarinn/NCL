@@ -6,6 +6,8 @@ import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
 import { composeValidators, confirmPassword, email, minCountChar, required } from "@/shared/utils/validators"
 import { fetchRegistration, IRegistration } from "../api"
 import { Link, useNavigate } from "@/shared/router"
+import { useAction } from "@reatom/npm-react"
+import { addAlertAction } from "@/shared/alerts"
 
 type TRegistration = IRegistration & {
   confirmPassword: string
@@ -16,11 +18,16 @@ export const Registration = () => {
 
   const navigate = useNavigate()
 
+  const addAlert = useAction(addAlertAction)
+
   const registration = async (values: TRegistration, { setSubmitting }: FormikHelpers<TRegistration>) => {
     await fetchRegistration({ email: values.email, password: values.password })
       .then((response) => {
         if (response.data) {
+          addAlert({ type: "info", message: "Registration successful. Go to the email for confirmation" })
           navigate("/auth/login")
+        } else if (response.error) {
+          addAlert({ type: "error", message: response.error })
         }
       })
       .finally(() => setSubmitting(false))

@@ -4,14 +4,14 @@ import { v4 as uuid } from "uuid"
 
 export const alertsAtom = atom<IAlert[]>([], "alertsAtom")
 
-export const addAlert = action((ctx, data: Omit<IAlert, "id">) => {
+export const addAlertAction = action((ctx, data: Omit<IAlert, "id">) => {
   const alert = {
     id: uuid(),
     ...data,
   }
   alertsAtom(ctx, (prevAlerts) => [...prevAlerts, alert])
-}, "addAlert")
+}, "addAlertAction")
 
-export const removeAlert = action((ctx, id: IAlert["id"]) => {
+export const removeAlertAction = action((ctx, id: IAlert["id"]) => {
   alertsAtom(ctx, (prevAlerts) => prevAlerts.filter((alert) => alert.id !== id))
-}, "removeAlert")
+}, "removeAlertAction")

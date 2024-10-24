@@ -7,11 +7,15 @@ import { composeValidators, email, minCountChar, required } from "@/shared/utils
 import { fetchLogin, ILogin } from "../api"
 import { Link, useNavigate } from "@/shared/router"
 import { saveAccessToken } from "@/shared/api/tokenManager"
+import { addAlertAction } from "@/shared/alerts"
+import { useAction } from "@reatom/npm-react"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }
 
   const navigate = useNavigate()
+
+  const addAlert = useAction(addAlertAction)
 
   const login = async (values: ILogin, { setSubmitting }: FormikHelpers<ILogin>) => {
     await fetchLogin(values)
@@ -19,6 +23,8 @@ export const Login = () => {
         if (response.data) {
           saveAccessToken(response.data?.accessToken)
           navigate("/")
+        } else {
+          addAlert({ type: "error", message: response.error! })
         }
       })
       .finally(() => setSubmitting(false))

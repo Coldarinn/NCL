@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { alertsAtom, removeAlert as removeAlertAction } from "./model"
+import { alertsAtom, removeAlertAction } from "./model"
 import styles from "./Alerts.module.scss"
 import { IAlert } from "./types"
 import { useAction, useAtom } from "@reatom/npm-react"

@@ -1,2 +1,2 @@
 export { Alerts } from "./Alerts"
-export { addAlert, removeAlert } from "./model"
+export { addAlertAction, removeAlertAction } from "./model"
