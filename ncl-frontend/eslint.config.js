@@ -1,9 +1,9 @@
-import pluginPrettierRecommended from "eslint-plugin-prettier/recommended"
-
-import globals from "globals"
 import pluginJs from "@eslint/js"
-import tseslint from "typescript-eslint"
+import pluginImport from "eslint-plugin-import"
+import pluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 import pluginReact from "eslint-plugin-react"
+import globals from "globals"
+import tseslint from "typescript-eslint"
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -12,6 +12,7 @@ export default [
   pluginPrettierRecommended,
   pluginReact.configs.flat.recommended,
   pluginReact.configs.flat["jsx-runtime"],
+  pluginImport.flatConfigs.recommended,
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: {
@@ -28,6 +29,37 @@ export default [
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
+        },
+      ],
+      "import/no-unresolved": "off",
+      "import/no-cycle": "error",
+      "import/order": [
+        "error",
+        {
+          groups: ["builtin", "external", "internal"],
+          pathGroups: [
+            {
+              pattern: "@/app/**",
+              group: "external",
+              position: "after",
+            },
+            {
+              pattern: "@/pages/**",
+              group: "external",
+              position: "after",
+            },
+            {
+              pattern: "@/shared/**",
+              group: "external",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["builtin"],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
         },
       ],
     },
