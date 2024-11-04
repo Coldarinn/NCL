@@ -1,13 +1,14 @@
-import cls from "./Registration.module.scss"
-
-import { InputField } from "@/shared/ui/Input"
-import { Button } from "@/shared/ui/Button"
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
-import { composeValidators, confirmPassword, email, minCountChar, required } from "@/shared/utils/validators"
-import { fetchRegistration, IRegistration } from "../api"
-import { Link, useNavigate } from "@/shared/router"
 import { useAction } from "@reatom/npm-react"
+import { Field, type FieldProps, Form, Formik, type FormikHelpers } from "formik"
+
 import { addAlertAction } from "@/shared/alerts"
+import { Link, useNavigate } from "@/shared/router"
+import { Button } from "@/shared/ui/Button"
+import { InputField } from "@/shared/ui/Input"
+import { composeValidators, confirmPassword, email, minCountChar, required } from "@/shared/utils/validators"
+
+import cls from "./Registration.module.scss"
+import { fetchRegistration, IRegistration } from "../api"
 
 type TRegistration = IRegistration & {
   confirmPassword: string

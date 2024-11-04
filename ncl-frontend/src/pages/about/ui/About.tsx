@@ -1,7 +1,7 @@
 import { removeAccessToken } from "@/shared/api/tokenManager"
-import cls from "./About.module.scss"
-
 import { Link, useNavigate } from "@/shared/router"
+
+import cls from "./About.module.scss"
 
 export const About = () => {
   const navigate = useNavigate()

@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN, endpoints, httpClient } from "@/shared/api"
+
 import { IRegistration } from "./types"
 
 interface RegistrationResponse {

@@ -1,9 +1,10 @@
+import classNames from "classnames"
 import { FC, InputHTMLAttributes, ReactNode, useRef, useState } from "react"
-import cls from "./Input.module.scss"
 
 import EyeIcon from "@/shared/assets/icons/eye.svg"
-import classNames from "classnames"
 import { useIsomorphicLayoutEffect } from "@/shared/hooks/useIsomorphicLayoutEffect"
+
+import cls from "./Input.module.scss"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string

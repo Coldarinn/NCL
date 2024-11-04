@@ -1,6 +1,7 @@
-import { FieldProps } from "formik"
-import { Input } from "./Input"
+import { type FieldProps } from "formik"
 import { ComponentProps } from "react"
+
+import { Input } from "./Input"
 
 type Props = Pick<FieldProps, "field" | "meta"> & ComponentProps<typeof Input>
 

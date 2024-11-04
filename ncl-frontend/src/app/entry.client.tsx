@@ -1,11 +1,11 @@
+import { createCtx } from "@reatom/core"
+import { reatomContext } from "@reatom/npm-react"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { matchRoutes } from "react-router-dom"
 
-import { routes } from "./router/routes"
 import { Router } from "./router"
-import { createCtx } from "@reatom/core"
-import { reatomContext } from "@reatom/npm-react"
+import { routes } from "./router/routes"
 
 const ctx = createCtx()
 

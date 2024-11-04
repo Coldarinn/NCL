@@ -1,4 +1,5 @@
 import { redirect as reactRouterRedirect } from "react-router-dom"
+
 import { AppRoutes } from "./types"
 
 type RedirectPath<Path extends keyof AppRoutes> = {

@@ -1,4 +1,5 @@
 import { useNavigate as useReactRouterNavigate } from "react-router-dom"
+
 import { AppRoutes } from "./types"
 
 export function useNavigate() {

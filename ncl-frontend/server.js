@@ -1,8 +1,9 @@
-import { fileURLToPath } from "url"
-import path from "path"
 import fsp from "fs/promises"
-import express from "express"
+import path from "path"
+import { fileURLToPath } from "url"
+
 import dotenv from "dotenv"
+import express from "express"
 
 dotenv.config()
 

@@ -1,14 +1,15 @@
-import cls from "./Login.module.scss"
-
-import { InputField } from "@/shared/ui/Input"
-import { Button } from "@/shared/ui/Button"
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
-import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
-import { fetchLogin, ILogin } from "../api"
-import { Link, useNavigate } from "@/shared/router"
-import { saveAccessToken } from "@/shared/api/tokenManager"
-import { addAlertAction } from "@/shared/alerts"
 import { useAction } from "@reatom/npm-react"
+import { Field, type FieldProps, Form, Formik, type FormikHelpers } from "formik"
+
+import { addAlertAction } from "@/shared/alerts"
+import { saveAccessToken } from "@/shared/api/tokenManager"
+import { Link, useNavigate } from "@/shared/router"
+import { Button } from "@/shared/ui/Button"
+import { InputField } from "@/shared/ui/Input"
+import { composeValidators, email, minCountChar, required } from "@/shared/utils/validators"
+
+import cls from "./Login.module.scss"
+import { fetchLogin, ILogin } from "../api"
 
 export const Login = () => {
   const initialValues: ILogin = { email: "", password: "" }

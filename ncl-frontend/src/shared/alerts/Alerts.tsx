@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
-import { alertsAtom, removeAlertAction } from "./model"
-import styles from "./Alerts.module.scss"
-import { IAlert } from "./types"
 import { useAction, useAtom } from "@reatom/npm-react"
 import classNames from "classnames"
+import { useEffect, useState } from "react"
+
 import CrossIcon from "@/shared/assets/icons/cross.svg"
+
+import styles from "./Alerts.module.scss"
+import { alertsAtom, removeAlertAction } from "./model"
+import { IAlert } from "./types"
 
 export const Alerts = () => {
   const [alerts] = useAtom(alertsAtom)

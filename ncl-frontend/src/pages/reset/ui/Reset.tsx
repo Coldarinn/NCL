@@ -1,11 +1,13 @@
+import { Field, type FieldProps, Form, Formik, type FormikHelpers } from "formik"
 import { Link } from "react-router-dom"
-import cls from "./Reset.module.scss"
-import { InputField } from "@/shared/ui/Input"
-import { Button } from "@/shared/ui/Button"
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik"
-import { composeValidators, email, required } from "@/shared/utils/validators"
-import { fetchReset } from "../api"
+
 import { useNavigate } from "@/shared/router"
+import { Button } from "@/shared/ui/Button"
+import { InputField } from "@/shared/ui/Input"
+import { composeValidators, email, required } from "@/shared/utils/validators"
+
+import cls from "./Reset.module.scss"
+import { fetchReset } from "../api"
 
 interface IReset {
   email: string

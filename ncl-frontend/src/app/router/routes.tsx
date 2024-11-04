@@ -1,14 +1,17 @@
-import { RouteObject } from "react-router-dom"
-import { Auth } from "./layouts/Auth"
+import { type RouteObject } from "react-router-dom"
+
+import { About } from "@/pages/about"
+import { Home } from "@/pages/home"
 import { Login } from "@/pages/login"
+import { NoMatch } from "@/pages/noMatch"
 import { Registration } from "@/pages/registration"
 import { Reset } from "@/pages/reset"
-import { Home } from "@/pages/home"
-import { redirect } from "@/shared/router"
-import { NoMatch } from "@/pages/noMatch"
+
 import { getAccessToken } from "@/shared/api"
+import { redirect } from "@/shared/router"
+
+import { Auth } from "./layouts/Auth"
 import { Layout } from "./layouts/Default"
-import { About } from "@/pages/about"
 
 export const routes: RouteObject[] = [
   {

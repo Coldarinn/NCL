@@ -1,6 +1,7 @@
 import { atom, action } from "@reatom/core"
-import { IAlert } from "./types"
 import { v4 as uuid } from "uuid"
+
+import { IAlert } from "./types"
 
 export const alertsAtom = atom<IAlert[]>([], "alertsAtom")
 

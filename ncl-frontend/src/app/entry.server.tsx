@@ -1,10 +1,11 @@
+import { createCtx } from "@reatom/core"
+import { reatomContext } from "@reatom/npm-react"
 import type * as express from "express"
 import * as React from "react"
 import ReactDOMServer from "react-dom/server"
 import { createStaticHandler, createStaticRouter, StaticRouterProvider } from "react-router-dom/server"
+
 import { routes } from "./router/routes"
-import { createCtx } from "@reatom/core"
-import { reatomContext } from "@reatom/npm-react"
 
 export const ctx = createCtx()
 

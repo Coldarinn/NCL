@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+
 import cls from "./NoMatch.module.scss"
 
 export const NoMatch = () => {

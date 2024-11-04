@@ -1,4 +1,5 @@
-import { Link as ReactRouterLink, LinkProps as ReactRouterLinkProps } from "react-router-dom"
+import { Link as ReactRouterLink, type LinkProps as ReactRouterLinkProps } from "react-router-dom"
+
 import { AppRoutes } from "./types"
 
 type CustomLinkProps<Path extends keyof AppRoutes> = Omit<ReactRouterLinkProps, "to"> & {
