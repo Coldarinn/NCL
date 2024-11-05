@@ -1,13 +1,15 @@
+/* stylelint-disable at-rule-empty-line-before */
+/* stylelint-disable media-query-no-invalid */
 @use "sass:map";
 
 $breakpoints: (
-  phoneSmall: 320,
-  phoneLarge: 600,
-  tabletPortrait: 768,
-  tabletLandscape: 1024,
-  desktopSmall: 1280,
-  desktopMedium: 1440,
-  desktopLarge: 1920,
+  phonesmall: 320,
+  phonelarge: 600,
+  tabletportrait: 768,
+  tabletlandscape: 1024,
+  desktopsmall: 1280,
+  desktopmedium: 1440,
+  desktoplarge: 1920,
 );
 
 @mixin media-max($breakpoint) {

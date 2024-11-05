@@ -1,8 +1,7 @@
 .wrapper {
-  padding-right: var(--gap-48);
-
   display: grid;
   gap: var(--gap-48);
+  padding-right: var(--gap-48);
 }
 
 .title {
@@ -12,9 +11,10 @@
 
 .subtitle {
   display: grid;
+
   a {
-    color: var(--color-accent);
     font-weight: 600;
+    color: var(--color-accent);
   }
 }
 
@@ -39,20 +39,20 @@
 
 .passwordForgot {
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
 
   font-size: 12px;
   color: var(--color-accent);
 }
 
 .signUp {
-  margin-top: calc(-1 * var(--gap-16));
-
   display: flex;
+  gap: var(--gap-8);
   align-items: center;
   justify-content: center;
-  gap: var(--gap-8);
+
+  margin-top: calc(-1 * var(--gap-16));
 
   font-size: 14px;
 

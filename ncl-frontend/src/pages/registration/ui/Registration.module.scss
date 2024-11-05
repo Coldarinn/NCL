@@ -1,8 +1,7 @@
 .wrapper {
-  padding-right: var(--gap-48);
-
   display: grid;
   gap: var(--gap-48);
+  padding-right: var(--gap-48);
 }
 
 .title {
@@ -21,12 +20,12 @@
 }
 
 .signIn {
-  margin-top: calc(-1 * var(--gap-16));
-
   display: flex;
+  gap: var(--gap-8);
   align-items: center;
   justify-content: center;
-  gap: var(--gap-8);
+
+  margin-top: calc(-1 * var(--gap-16));
 
   font-size: 14px;
 

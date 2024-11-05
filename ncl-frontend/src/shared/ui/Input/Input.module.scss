@@ -1,8 +1,7 @@
 .wrapper {
+  position: relative;
   display: grid;
   gap: var(--gap-4);
-
-  position: relative;
 }
 
 .label {
@@ -11,39 +10,38 @@
 }
 
 .inputContainer {
+  position: relative;
   display: flex;
   align-items: center;
-
-  position: relative;
 }
 
 .input {
-  padding: var(--gap-12) var(--gap-16);
   width: 100%;
-
-  border-radius: var(--radius-8);
-  border: 1px solid var(--stroke-second);
-  background: var(--bg-second);
+  padding: var(--gap-12) var(--gap-16);
 
   font-size: 14px;
   color: var(--text-main);
+
+  background: var(--bg-second);
+  border: 1px solid var(--stroke-second);
+  border-radius: var(--radius-8);
 }
 
 .rightAddons {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-4);
-
   position: absolute;
-  right: var(--gap-16);
   top: 50%;
+  right: var(--gap-16);
   transform: translateY(-50%);
+
+  display: flex;
+  gap: var(--gap-4);
+  align-items: center;
 }
 
 .error {
   position: absolute;
-  left: 0;
   top: 100%;
+  left: 0;
 
   font-size: 12px;
   color: var(--color-error);
