@@ -2,6 +2,7 @@
   "extends": "stylelint-config-standard",
   "plugins": ["stylelint-scss", "stylelint-order"],
   "rules": {
+    "selector-class-pattern": null,
     "order/order": ["dollar-variables", "custom-properties", "at-rules", "declarations"],
     "order/properties-order": [
       {
