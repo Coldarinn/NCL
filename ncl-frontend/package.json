@@ -10,6 +10,7 @@
     "build:server": "vite build --ssr src/app/entry.server.tsx --outDir dist/server",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint .",
+    "lint:css": "stylelint src/**/*.{scss,css}",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -43,6 +44,9 @@
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.9.0",
     "sass-embedded": "^1.80.2",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-scss": "^6.8.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",
     "typescript-plugin-css-modules": "^5.1.0",
