@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     name: lint frontend
 
+    defaults:
+      run:
+        working-directory: ncl-frontend
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,13 +31,17 @@ jobs:
           node-version: 20.x.x
           cache: npm
 
-      - run: cd ncl-frontend && npm ci
-      - run: cd ncl-frontend && npm run lint:js
-      - run: cd ncl-frontend && npm run lint:css
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run lint:css
 
   lint-backend:
     runs-on: ubuntu-latest
     name: lint backend
+
+    defaults:
+      run:
+        working-directory: ncl-backend
 
     steps:
       - uses: actions/checkout@v4
@@ -45,5 +53,5 @@ jobs:
           node-version: 20.x.x
           cache: npm
 
-      - run: cd ncl-backend && npm ci
-      - run: cd ncl-backend && npm run lint
+      - run: npm ci
+      - run: npm run lint
