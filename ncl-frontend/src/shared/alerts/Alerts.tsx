@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import CrossIcon from "@/shared/assets/icons/cross.svg"
 
 import styles from "./Alerts.module.scss"
-import { alertsAtom, removeAlertAction } from "./model"
+import { alertsAtom, Assss, removeAlertAction } from "./model"
 import { IAlert } from "./types"
 
 export const Alerts = () => {
@@ -16,6 +16,7 @@ export const Alerts = () => {
       {alerts.map((alert) => (
         <AlertItem key={alert.id} alert={alert} />
       ))}
+      <Assss />
     </div>
   )
 }
