@@ -31,7 +31,7 @@ export default [
           varsIgnorePattern: "^_",
         },
       ],
-      // "import/no-unresolved": "off",
+      "import/no-unresolved": "off",
       "import/no-cycle": "error",
       "import/order": [
         "error",
