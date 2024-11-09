@@ -12,10 +12,10 @@ type ResetPasswordProps = {
 const ResetPassword = ({ username, password, description, frontendUrl }: ResetPasswordProps) => {
   const previewText = `Password reset NCL${username || ""}`
 
-  // @ts-expect-error eslint-disable @typescript-eslint/ban-ts-comment
   return (
     <Html lang="ru">
       <Tailwind
+        // @ts-expect-error eslint-disable @typescript-eslint/ban-ts-comment
         config={{
           theme: {
             screens: {
