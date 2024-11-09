@@ -14,7 +14,6 @@ on:
 
 jobs:
   lint-frontend:
-    if: contains(github.event.pull_request.changed_files, 'ncl-frontend/')
     runs-on: ubuntu-latest
     name: lint frontend
 
@@ -33,7 +32,6 @@ jobs:
       - run: cd ncl-frontend && npm run lint:css
 
   lint-backend:
-    if: contains(github.event.pull_request.changed_files, 'ncl-backend/')
     runs-on: ubuntu-latest
     name: lint backend
 
