@@ -34,6 +34,10 @@ jobs:
         working-directory: ./ncl-frontend
         run: npm run lint:js
 
+      - name: Run TypeScript lint
+        working-directory: ./ncl-frontend
+        run: npm run lint:ts
+
       - name: Run CSS lint
         working-directory: ./ncl-frontend
         run: npm run lint:css
@@ -55,6 +59,10 @@ jobs:
         working-directory: ./ncl-backend
         run: npm ci
 
-      - name: Run backend lint
+      - name: Run JavaScript lint
         working-directory: ./ncl-backend
-        run: npm run lint
+        run: npm run lint:js
+
+      - name: Run TypeScript lint
+        working-directory: ./ncl-backend
+        run: npm run lint:ts

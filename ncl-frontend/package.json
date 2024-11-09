@@ -11,6 +11,7 @@
     "start": "NODE_ENV=production node server.js",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
+    "lint:ts": "tsc --noEmit",
     "lint:css": "stylelint src/**/*.{scss,css}",
     "lint:css:fix": "stylelint src/**/*.{scss,css} --fix",
     "preview": "vite preview"
