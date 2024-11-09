@@ -1,0 +1,45 @@
+name: lint
+
+on:
+  pull_request:
+    paths:
+      - "ncl-frontend/**"
+      - "ncl-backend/**"
+
+jobs:
+  lint-frontend:
+    if: contains(github.event.pull_request.changed_files, 'ncl-frontend/')
+    runs-on: ubuntu-latest
+    name: lint frontend
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ncl-frontend
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.x.x
+          cache: npm
+
+      - run: cd ncl-frontend && npm ci
+      - run: cd ncl-frontend && npm run lint:js
+      - run: cd ncl-frontend && npm run lint:css
+
+  lint-backend:
+    if: contains(github.event.pull_request.changed_files, 'ncl-backend/')
+    runs-on: ubuntu-latest
+    name: lint backend
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ncl-backend
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.x.x
+          cache: npm
+
+      - run: cd ncl-backend && npm ci
+      - run: cd ncl-backend && npm run lint
