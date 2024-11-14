@@ -6,6 +6,60 @@ on:
       - main
 
 jobs:
+  lint-frontend:
+    runs-on: ubuntu-latest
+    name: lint frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+          cache: npm
+
+      - name: Install dependencies
+        working-directory: ./ncl-frontend
+        run: npm ci
+
+      - name: Run JavaScript lint
+        working-directory: ./ncl-frontend
+        run: npm run lint:js
+
+      - name: Run TypeScript lint
+        working-directory: ./ncl-frontend
+        run: npm run lint:ts
+
+      - name: Run CSS lint
+        working-directory: ./ncl-frontend
+        run: npm run lint:css
+
+  lint-backend:
+    runs-on: ubuntu-latest
+    name: lint backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+          cache: npm
+
+      - name: Install dependencies
+        working-directory: ./ncl-backend
+        run: npm ci
+
+      - name: Run JavaScript lint
+        working-directory: ./ncl-backend
+        run: npm run lint:js
+
+      - name: Run TypeScript lint
+        working-directory: ./ncl-backend
+        run: npm run lint:ts
+
   deploy:
     needs: [lint-frontend, lint-backend]
     runs-on: ubuntu-latest
