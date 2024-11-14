@@ -1,0 +1,33 @@
+/* stylelint-disable at-rule-empty-line-before */
+/* stylelint-disable media-query-no-invalid */
+@use "sass:map";
+
+$breakpoints: (
+  phonesmall: 320,
+  phonelarge: 600,
+  tabletportrait: 768,
+  tabletlandscape: 1024,
+  desktopsmall: 1280,
+  desktopmedium: 1440,
+  desktoplarge: 1920,
+);
+
+@mixin media-max($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: #{map.get($breakpoints, $breakpoint) - 1}px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
+  }
+}
+
+@mixin media-min($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: #{map.get($breakpoints, $breakpoint)}px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
+  }
+}
